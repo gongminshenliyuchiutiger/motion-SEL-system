@@ -8,14 +8,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
     :root {
-        /* 紫色賽博龐克色系定義 */
-        --c-bg-dark: #050014;       
-        --c-primary: #b026ff;       /* 主色：霓虹紫 */
-        --c-secondary: #00f3ff;     /* 副色：賽博青 */
-        --c-accent: #ff00ff;        /* 點綴：霓虹粉 */
-        --c-danger: #ff2a2a;        /* 警告：紅 */
-        --c-heal: #00ff9d;          /* 治療：螢光綠 */
-        --c-grid: rgba(176, 38, 255, 0.15); 
+        /* SEL 禪風柔和色系定義 */
+        --c-bg-dark: #1e272e;       /* 深石藍：比純黑更柔和 */
+        --c-primary: #5352ed;       /* 主色：和平靛 */
+        --c-secondary: #2ed573;     /* 副色：薄荷綠 */
+        --c-accent: #ffa502;        /* 點綴：暖陽橘 */
+        --c-danger: #ff4757;        /* 警告：珊瑚紅 */
+        --c-heal: #32ff7e;          /* 治療：自然綠 */
+        --c-grid: rgba(83, 82, 237, 0.08); 
     }
 
     body {
@@ -55,10 +55,10 @@
 
     /* 頂部資訊列 */
     #top-bar {
-        padding: 20px; display: flex; justify-content: space-between; align-items: center;
-        background: linear-gradient(to bottom, rgba(30,0,60,0.9), transparent);
-        font-weight: bold; font-size: 24px; text-shadow: 0 0 10px var(--c-primary);
-        border-bottom: 1px solid rgba(176, 38, 255, 0.3);
+        padding: 24px; display: flex; justify-content: space-between; align-items: center;
+        background: linear-gradient(to bottom, rgba(30, 39, 46, 0.95), transparent);
+        font-weight: bold; font-size: 24px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        border-bottom: 1px solid rgba(83, 82, 237, 0.2);
         opacity: 0; transition: 0.5s; pointer-events: auto;
     }
     .left-group { display: flex; gap: 20px; align-items: center; }
@@ -80,83 +80,78 @@
     }
     #sound-btn:hover { background: var(--c-primary); box-shadow: 0 0 15px var(--c-primary); }
 
-    /* --- 新版 HUD 啟動面板樣式 --- */
+    #sound-btn:hover { background: var(--c-primary); }
+
+    /* --- HUD 啟動面板：強化 SEL 溫潤質感 --- */
     .panel-hud {
         position: absolute; top: 50%; left: 50%; 
         transform: translate(-50%, -50%);
         width: 90%; max-width: 650px;
-        background: rgba(10, 5, 20, 0.85); /* 深邃背景 */
-        border: 1px solid rgba(176, 38, 255, 0.3);
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 0 50px rgba(176, 38, 255, 0.2), inset 0 0 100px rgba(0,0,0,0.8);
-        backdrop-filter: blur(15px);
+        background: rgba(30, 39, 46, 0.9);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 30px;
+        padding: 50px 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         text-align: center;
         z-index: 20; pointer-events: auto;
-        /* 賽博龐克切角 */
-        clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
     }
-    /* 角落裝飾線 */
+    /* 移除賽博切角，改為簡約邊條 */
     .panel-hud::before, .panel-hud::after {
-        content: ''; position: absolute; width: 30px; height: 30px;
-        border: 3px solid var(--c-secondary); transition: 0.3s; pointer-events: none;
+        content: ''; position: absolute; width: 60px; height: 3px;
+        background: var(--c-primary); transition: 0.3s; pointer-events: none; border-radius: 10px;
     }
-    .panel-hud::before { top: 0; left: 0; border-right: none; border-bottom: none; }
-    .panel-hud::after { bottom: 0; right: 0; border-left: none; border-top: none; }
+    .panel-hud::before { top: 20px; left: 20px; }
+    .panel-hud::after { bottom: 20px; right: 20px; }
 
     .hud-title {
-        font-size: clamp(2rem, 5vw, 3.5rem); margin: 0 0 10px 0; text-transform: uppercase;
-        background: linear-gradient(135deg, #fff 0%, var(--c-secondary) 50%, var(--c-primary) 100%);
-        -webkit-background-clip: text; color: transparent;
-        text-shadow: 0 0 20px rgba(176, 38, 255, 0.6); letter-spacing: 2px;
+        font-size: clamp(1.8rem, 5vw, 3rem); margin: 0 0 10px 0;
+        background: linear-gradient(135deg, #fff, #dcdde1);
+        -webkit-background-clip: text; 
+        background-clip: text; /* 修正相容性問題 */
+        color: transparent;
+        text-shadow: 0 4px 10px rgba(0,0,0,0.1); letter-spacing: 1px;
     }
-    .hud-subtitle { color: #aaa; font-size: 1.1rem; margin-bottom: 30px; letter-spacing: 1px; }
+    .hud-subtitle { color: #dcdde1; font-size: 1rem; margin-bottom: 30px; letter-spacing: 2px; opacity: 0.8; }
 
     /* 卡片式說明區 */
     .cards-container { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 30px; }
     .info-card {
-        background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
-        padding: 15px 10px; border-radius: 8px;
-        display: flex; flex-direction: column; align-items: center; gap: 10px; transition: 0.3s;
+        background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+        padding: 20px 10px; border-radius: 16px;
+        display: flex; flex-direction: column; align-items: center; gap: 12px; transition: 0.3s;
     }
-    .info-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.08); }
-    .info-card i { font-size: 2rem; margin-bottom: 5px; }
-    .info-card h3 { margin: 0; font-size: 1rem; color: #fff; }
-    .info-card span { font-size: 0.85rem; opacity: 0.8; }
+    .info-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+    .info-card i { font-size: 2.2rem; margin-bottom: 5px; }
+    .info-card h3 { margin: 0; font-size: 1.1rem; color: #fff; }
+    .info-card span { font-size: 0.85rem; color: #a29bfe; }
 
-    .card-bad { border-bottom: 3px solid var(--c-danger); }
-    .card-bad i { color: var(--c-danger); filter: drop-shadow(0 0 5px var(--c-danger)); }
+    .card-bad { border-bottom: 4px solid var(--c-danger); }
+    .card-bad i { color: var(--c-danger); filter: none; }
     
-    .card-super { border-bottom: 3px solid var(--c-primary); }
-    .card-super i { color: var(--c-primary); filter: drop-shadow(0 0 5px var(--c-primary)); }
+    .card-super { border-bottom: 4px solid var(--c-primary); }
+    .card-super i { color: var(--c-primary); filter: none; }
     
-    .card-heal { border-bottom: 3px solid var(--c-heal); }
-    .card-heal i { color: var(--c-heal); filter: drop-shadow(0 0 8px var(--c-heal)); animation: beat 1s infinite; }
+    .card-heal { border-bottom: 4px solid var(--c-secondary); }
+    .card-heal i { color: var(--c-secondary); filter: none; animation: beat 1.5s infinite; }
 
     .hud-tip {
-        color: var(--c-heal); font-size: 0.95rem; margin-bottom: 30px;
-        background: rgba(0, 255, 157, 0.05); padding: 8px 15px;
-        border-radius: 50px; border: 1px solid rgba(0, 255, 157, 0.2);
+        color: #fff; font-size: 0.95rem; margin-bottom: 30px;
+        background: rgba(83, 82, 237, 0.2); padding: 10px 20px;
+        border-radius: 50px; border: 1px solid rgba(83, 82, 237, 0.3);
         display: inline-block;
     }
 
-    /* 升級版按鈕 */
+    /* 現代化 SEL 按鈕 */
     .btn-cyber {
-        position: relative; background: var(--c-primary);
-        color: #fff; font-size: 1.5rem; font-weight: bold;
-        padding: 15px 60px; border: none; cursor: pointer;
-        clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
-        transition: 0.3s; overflow: hidden;
-        box-shadow: 0 0 30px rgba(176, 38, 255, 0.5);
+        background: var(--c-primary); color: #fff; font-size: 1.2rem; font-weight: bold;
+        padding: 16px 50px; border: none; cursor: pointer;
+        border-radius: 50px;
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 10px 20px rgba(83, 82, 237, 0.3);
     }
-    .btn-cyber::before {
-        content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-        transform: skewX(-20deg); animation: shine 3s infinite;
-    }
-    @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
-    .btn-cyber:hover { transform: scale(1.05); background: #d600ff; box-shadow: 0 0 50px var(--c-primary); }
-    .btn-cyber:active { transform: scale(0.95); }
+    .btn-cyber:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px rgba(83, 82, 237, 0.4); }
+    .btn-cyber:active { transform: translateY(0) scale(0.98); }
 
     /* Game Over 畫面樣式 (共用部分) */
     .game-over-content { text-align: center; }
@@ -168,7 +163,8 @@
     }
 
     .hidden { display: none !important; }
-
+    
+    /* 吉祥物容器 */
     .mascot-container {
         position: absolute; bottom: 40px; left: 20px;
         width: 140px; height: auto;
@@ -179,6 +175,10 @@
     .mascot-container img { width: 100%; display: block; filter: drop-shadow(0 0 5px var(--c-primary)); }
     .mascot-container:hover img { animation: neon-pulse 1.5s infinite ease-in-out; }
     @keyframes neon-pulse { 0% { filter: drop-shadow(0 0 5px var(--c-primary)); } 50% { filter: drop-shadow(0 0 15px var(--c-accent)); } 100% { filter: drop-shadow(0 0 5px var(--c-primary)); } }
+
+    .hidden-bubble { display: none !important; opacity: 0; }
+    
+    @keyframes bubble-pop { from { transform: translateX(-50%) scale(0); opacity:0; } to { transform: translateX(-50%) scale(1); opacity:1; } }
 
     .footer {
         position: absolute; bottom: 10px; width: 100%;
@@ -196,15 +196,23 @@
     @keyframes red-pulse { from { opacity: 0.3; } to { opacity: 0.7; } }
 
     /* 心情簽到按鈕樣式 */
-    .mood-container { display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+    .mood-container { 
+        display: grid; 
+        grid-template-columns: repeat(6, 1fr); 
+        gap: 10px; 
+        margin-top: 30px; 
+        width: 100%;
+        padding: 0 10px;
+    }
     .mood-btn {
-        background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3);
-        padding: 15px; border-radius: 15px; cursor: pointer; transition: 0.3s;
-        display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100px;
+        background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 15px 5px; border-radius: 18px; cursor: pointer; transition: 0.3s;
+        display: flex; flex-direction: column; align-items: center; gap: 10px; 
+        min-width: 0;
     }
     .mood-btn:hover { background: var(--c-primary); transform: translateY(-5px); box-shadow: 0 0 20px var(--c-primary); }
     .mood-btn i { font-size: 2rem; }
-    .mood-btn span { font-size: 0.9rem; }
+    .mood-btn span { font-size: 0.8rem; font-weight: bold; text-align: center; line-height: 1.2; }
 
     /* 情境文字樣式 */
     #scenario-ui {
@@ -226,15 +234,72 @@
     }
     .mindfulness-bar { height: 100%; background: var(--c-heal); width: 0%; transition: width 0.1s linear; }
 
+    /* --- master edition: 連擊與效果樣式 --- */
+    #combo-container {
+        position: absolute; top: 100px; right: 24px; pointer-events: none;
+        text-align: right; z-index: 15; transition: 0.3s;
+        display: none; /* 修改為 display: none 確保隱藏時絕不佔空間 */
+    }
+    #combo-container:not(.hidden) { display: block; }
+    
+    .combo-count { 
+        font-size: 4rem; font-weight: 900; margin: 0;
+        background: linear-gradient(to bottom, #fff, var(--c-accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        line-height: 1;
+        /* 移除外發光濾鏡以防跑版 */
+    }
+    .combo-label { font-size: 1.2rem; color: var(--c-accent); letter-spacing: 2px; }
+    .pulse-scale { animation: pulse-scale 0.3s ease-out; }
+    @keyframes pulse-scale { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+
+    /* 對話框樣式 */
+    .speech-bubble {
+        position: absolute; background: #fff; color: #1e272e;
+        padding: 8px 15px; border-radius: 20px; font-size: 14px; font-weight: bold;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3); border: 2px solid var(--c-primary);
+        word-break: break-all; width: 120px; text-align: center;
+        bottom: 120%; left: 50%; transform: translateX(-50%);
+        animation: bubble-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .speech-bubble::after {
+        content: ''; position: absolute; bottom: -10px; left: 50%;
+        transform: translateX(-50%); border-width: 10px 10px 0;
+        border-style: solid; border-color: #fff transparent transparent;
+    }
+    @keyframes bubble-pop { from { transform: translateX(-50%) scale(0); opacity:0; } to { transform: translateX(-50%) scale(1); opacity:1; } }
+
+    /* 螢幕震動與濾鏡 */
+    .shake { animation: shake-anim 0.2s linear 3; }
+    @keyframes shake-anim { 0% { transform: translate(0,0); } 25% { transform: translate(5px,5px); } 50% { transform: translate(-5px,-5px); } 75% { transform: translate(5px,-5px); } 100% { transform: translate(0,0); } }
+
+    .shield-effect {
+        position: absolute; inset: -15px; border-radius: 50%;
+        border: 3px solid #00f3ff; box-shadow: 0 0 20px #00f3ff, inset 0 0 20px #00f3ff;
+        opacity: 0.6; animation: rotate-shield 4s linear infinite;
+    }
+    @keyframes rotate-shield { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    /* 初始載入動畫：確保 Font Awesome 加載 */
+    @font-face {
+        font-family: 'Font Awesome 6 Free';
+        font-style: normal;
+        font-weight: 900;
+        src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2') format('woff2');
+    }
+
     @media (max-width: 768px) {
-        .panel-hud { width: 90%; padding: 25px 15px; }
-        .cards-container { grid-template-columns: 1fr; gap: 10px; }
-        .info-card { flex-direction: row; padding: 10px 20px; justify-content: flex-start; }
-        .info-card i { font-size: 1.5rem; margin: 0 15px 0 0; }
+        .panel-hud { width: 92%; padding: 30px 20px; border-radius: 20px; }
+        .cards-container { grid-template-columns: 1fr; gap: 12px; }
+        .info-card { flex-direction: row; padding: 15px 25px; justify-content: flex-start; }
+        .info-card i { font-size: 1.8rem; margin: 0 20px 0 0; }
         .hud-title { font-size: 1.8rem; }
-        #top-bar { padding: 10px 15px; flex-direction: row; flex-wrap: wrap; }
-        .mascot-container { width: 100px; bottom: 35px; left: 10px; }
-        .mood-btn { width: 80px; padding: 10px; }
+        #top-bar { padding: 15px; flex-direction: row; justify-content: center; gap: 30px; }
+        .mascot-container { width: 110px; bottom: 35px; left: 15px; }
+        .mood-container { gap: 8px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 5px; }
+        .mood-btn { min-width: 70px; padding: 10px 5px; border-radius: 12px; }
     }
 </style>
 </head>
@@ -263,7 +328,7 @@
             </div>
         </div>
 
-        <div id="mascot" class="mascot-container" title="LiyuChillGuy">
+        <div id="mascot" class="mascot-container">
             <img src="image/LiyuChillGuy.svg" draggable="false" 
                  onerror="this.src='https://cdn-icons-png.flaticon.com/512/4712/4712109.png'" 
                  alt="LiyuChillGuy">
@@ -274,6 +339,12 @@
         <!-- 情境 UI -->
         <div id="scenario-ui" class="hidden">
             <div class="scenario-title" id="scenario-text">情境提示文字</div>
+        </div>
+
+        <!-- 連擊 UI -->
+        <div id="combo-container" class="hidden">
+            <div id="combo-count" class="combo-count">0</div>
+            <div class="combo-label">COMBO</div>
         </div>
 
         <!-- 啟動畫面 (New HUD Design) -->
@@ -311,7 +382,7 @@
             </div>
 
             <div class="hud-tip">
-                <i class="fas fa-exclamation-circle"></i> 戰術提示：看到 <span style="font-weight:bold; color:#fff;">💖</span> 不用猶豫，直接碰觸補血！
+                <i class="fas fa-lightbulb"></i> 成長提示：看見 <span style="font-weight:bold; color:var(--c-secondary);">💖</span> 勇敢碰觸，修復你的情緒能量！
             </div>
             
             <br>
@@ -321,27 +392,31 @@
         <!-- 心情簽到面板 -->
         <div class="panel-hud hidden" id="checkin-panel">
             <h1 class="hud-title">今日心情簽到</h1>
-            <p class="hud-subtitle">你好！在開始情緒管理練習前，此刻你的心情是？</p>
+            <p class="hud-subtitle">在開始情緒練習前，此刻你的心情是？</p>
             <div class="mood-container">
-                <div class="mood-btn" onclick="initGame('happy')">
+                <div class="mood-btn" onclick="initGame('joy')">
                     <i class="fas fa-laugh-beam" style="color:#ffeb3b"></i>
-                    <span>開心</span>
+                    <span>快樂 Joy</span>
                 </div>
-                <div class="mood-btn" onclick="initGame('calm')">
-                    <i class="fas fa-smile-beam" style="color:#4caf50"></i>
-                    <span>平靜</span>
+                <div class="mood-btn" onclick="initGame('sadness')">
+                    <i class="fas fa-sad-tear" style="color:#64b5f6"></i>
+                    <span>悲傷 Sadness</span>
                 </div>
-                <div class="mood-btn" onclick="initGame('tired')">
-                    <i class="fas fa-tired" style="color:#9e9e9e"></i>
-                    <span>疲憊</span>
+                <div class="mood-btn" onclick="initGame('fear')">
+                    <i class="fas fa-flushed" style="color:#9575cd"></i>
+                    <span>恐懼 Fear</span>
                 </div>
-                <div class="mood-btn" onclick="initGame('anxious')">
-                    <i class="fas fa-flushed" style="color:#ff9800"></i>
-                    <span>焦慮</span>
+                <div class="mood-btn" onclick="initGame('disgust')">
+                    <i class="fas fa-face-grimace" style="color:#81c784"></i>
+                    <span>厭惡<br>Disgust</span>
                 </div>
-                <div class="mood-btn" onclick="initGame('angry')">
-                    <i class="fas fa-angry" style="color:#f44336"></i>
-                    <span>生氣</span>
+                <div class="mood-btn" onclick="initGame('anger')">
+                    <i class="fas fa-angry" style="color:#e57373"></i>
+                    <span>憤怒 Anger</span>
+                </div>
+                <div class="mood-btn" onclick="initGame('surprise')">
+                    <i class="fas fa-surprise" style="color:#ffd54f"></i>
+                    <span>驚訝<br>Surprise</span>
                 </div>
             </div>
         </div>
@@ -405,40 +480,58 @@
         // --- 遊戲資料庫 (教育內容) ---
         const GAME_DATA = {
             heal: [ // 【直接補血項目】
-                { t: "深呼吸", i: "🧘" }, { t: "自我接納", i: "💖" }, 
-                { t: "尋求幫助", i: "🤝" }, { t: "情緒轉念", i: "🌈" } 
+                { t: "深呼吸", i: "\uf70b" }, { t: "自我接納", i: "\uf004" }, 
+                { t: "尋求幫助", i: "\uf4c4" }, { t: "情緒轉念", i: "\uf676" } 
             ],
             super: [ // 高分
-                { t: "自我察覺", i: "💡" }, { t: "同理心", i: "🫂" }, 
-                { t: "正向溝通", i: "🗣️" }, { t: "壓力調適", i: "🍃" }
+                { t: "自我察覺", i: "\uf0eb" }, { t: "同理心", i: "\uf4c4" }, 
+                { t: "正向溝通", i: "\uf086" }, { t: "壓力調適", i: "\uf4d8" }
             ],
             rare: [ // 中分
-                { t: "換位思考", i: "🔄" }, { t: "感恩之心", i: "🙏" }, 
-                { t: "主動傾聽", i: "👂" }, { t: "衝突解決", i: "⚖️" }
+                { t: "換位思考", i: "\uf0ec" }, { t: "感恩之心", i: "\uf684" }, 
+                { t: "主動傾聽", i: "\uf2ce" }, { t: "衝突解決", i: "\uf24e" }
+            ],
+            normal: [ // 普通項 (增加多樣性)
+                { t: "主動分享", i: "\uf1e0" }, { t: "讚美他人", i: "\uf164" }, 
+                { t: "遵守規則", i: "\uf044" }, { t: "展現禮貌", i: "\uf4c4" },
+                { t: "互相幫助", i: "\uf4c4" }
             ],
             bad: [ // 直接扣命 (行為)
-                { t: "言語攻擊", i: "🗡️" }, { t: "逃避問題", i: "🏃" }, 
-                { t: "衝動行事", i: "⚡" }, { t: "人際衝突", i: "🥊" }
+                { t: "言語攻擊", i: "\uf2b5" }, { t: "逃避問題", i: "\uf70c" }, 
+                { t: "衝動行事", i: "\uf0e7" }, { t: "人際衝突", i: "\uf550" },
+                { t: "網路霸凌", i: "\uf3dd" }, { t: "情緒勒索", i: "\uf0c1" },
+                { t: "推卸責任", i: "\uf51b" }, { t: "惡意嘲笑", i: "\uf586" }
             ],
             emotion: [ // 自然情緒 (進入壓力狀態)
-                { t: "感到憤怒", i: "🌋" }, { t: "陷入焦慮", i: "😰" },
-                { t: "覺得失落", i: "🥀" }, { t: "產生壓力", i: "💢" }
+                { t: "感到憤怒", i: "\uf556" }, { t: "陷入焦慮", i: "\uf5b8" },
+                { t: "覺得失落", i: "\uf5c8" }, { t: "產生壓力", i: "\uf071" },
+                { t: "猜忌懷疑", i: "\uf06e" }
             ],
             scenarios: [
                 { 
                     q: "朋友未經同意拿走你的東西", 
-                    ok: { t: "平靜地請他歸還", i: "💬", v: 100 }, 
-                    no: { t: "立刻對他吼叫", i: "📢", v: -1 } 
+                    ok: { t: "平靜地請他歸還", i: "\uf086", v: 100 }, 
+                    no: { t: "立刻對他吼叫", i: "\uf556", v: -1 } 
                 },
                 { 
                     q: "比賽輸了感到很不甘心", 
-                    ok: { t: "肯定自己的努力", i: "👏", v: 100 }, 
-                    no: { t: "亂摔東西發洩", i: "💢", v: -1 } 
+                    ok: { t: "肯定自己的努力", i: "\uf51c", v: 100 }, 
+                    no: { t: "亂摔東西發洩", i: "\uf0e7", v: -1 } 
                 },
                 { 
                     q: "被老師誤會心情很糟糕", 
-                    ok: { t: "找機會理性說明", i: "⚖️", v: 100 }, 
-                    no: { t: "當眾出言頂撞", i: "🔥", v: -1 } 
+                    ok: { t: "找機會理性說明", i: "\uf24e", v: 100 }, 
+                    no: { t: "當眾出言頂撞", i: "\uf2b4", v: -1 } 
+                },
+                {
+                    q: "網路有人發表攻擊你的言論",
+                    ok: { t: "截圖存證並檢舉", i: "\uf3dd", v: 120 },
+                    no: { t: "留言回嗆與對罵", i: "\uf556", v: -1 }
+                },
+                {
+                    q: "看到同學被排擠在一旁",
+                    ok: { t: "主動上前打招呼", i: "\uf4c4", v: 150 },
+                    no: { t: "跟著眾人冷落他", i: "\uf550", v: -1 }
                 }
             ],
             tips: [ 
@@ -469,13 +562,39 @@
         let gameActive = false;
         let score = 0;
         let lives = 3;
-        const MAX_LIVES = 5; 
-        let nextLifeScore = 1500; 
+        const MAX_LIVES = 3; 
+        let nextLifeScore = 2000; 
         let items = []; 
         let particles = [];
         let floatingTexts = []; 
         let motionPoints = []; 
         let animationFrameId;
+
+        // --- Master Challenge 變數 ---
+        let combo = 0;
+        let maxCombo = 0;
+        let shakeAmount = 0;
+        let hasShield = false;
+        let stormActive = false;
+        let stormTimer = 0;
+        let nextStormScore = 1500;
+        
+        let analytics = { 
+            totalHeals: 0, totalBadHits: 0, totalRareHits: 0, 
+            totalSuperHits: 0, mindfulnessTime: 0 
+        };
+
+        const getDifficulty = () => {
+            // 基礎難度 1.0，每 1500 分增加 0.6 係數
+            return 1.0 + (score / 1500) * 0.6;
+        };
+
+        const MASCOT_MESSAGES = {
+            greet: ["加油！你可以的！", "保持呼吸，放鬆心情", "看見情緒，接納它"],
+            combo: ["好厲害！繼續保持！", "太神了！情緒大師是你！", "連擊發動！能量全開！"],
+            bad: ["沒關係，深呼吸再試一次", "別灰心，這只是個過程", "放鬆肩膀，慢慢來"],
+            shield: ["護盾啟動！安心探索！", "情緒守護中！"]
+        };
 
         class SoundManager {
             constructor() { this.ctx = null; this.muted = false; this.masterGain = null; }
@@ -516,7 +635,7 @@
                 this.playTone(400, 'sine', 0.1); 
                 setTimeout(() => this.playTone(600, 'sine', 0.1), 100);
                 setTimeout(() => this.playTone(800, 'sine', 0.4, 1200), 200);
-            } 
+            }
             playPowerUp() { 
                 this.playTone(500, 'square', 0.1, 800); 
                 setTimeout(() => this.playTone(800, 'square', 0.3, 1500), 100);
@@ -525,6 +644,7 @@
                 this.playTone(300, 'sawtooth', 0.4, 100); 
                 setTimeout(() => this.playTone(100, 'sawtooth', 1.0), 400); 
             }
+            playShield() { this.playTone(800, 'sine', 0.1, 1600); }
         }
         const sfx = new SoundManager();
 
@@ -532,47 +652,119 @@
 
         class MindfulnessZone {
             constructor() {
-                this.x = w / 2;
-                this.y = h / 3;
-                this.r = 120;
-                this.progress = 0;
+                const types = ['STAY', 'FOLLOW', 'FLOW'];
+                this.type = types[Math.floor(Math.random() * types.length)];
+                this.x = w / 2; this.y = h / 2.5; this.r = 130;
+                this.progress = 0; this.completed = false;
+                this.timer = 720; // 12秒 (60fps)
                 this.active = true;
-                this.completed = false;
+                this.angle = 0;
+                this.fx = this.x; this.fy = this.y;
+                this.lastX = -1;
+            }
+            isInZone() {
+                const tx = (this.type === 'FOLLOW') ? this.fx : this.x;
+                const ty = (this.type === 'FOLLOW') ? this.fy : this.y;
+                for (let mp of motionPoints) {
+                    if ((tx - mp.x)**2 + (ty - mp.y)**2 < this.r**2) return true;
+                }
+                return false;
             }
             update() {
-                let inZone = false;
-                for (let mp of motionPoints) {
-                    if ((this.x - mp.x)**2 + (this.y - mp.y)**2 < this.r**2) { inZone = true; break; }
+                this.timer--;
+                if (this.timer <= 0) { this.active = false; return; }
+
+                if (this.type === 'STAY') {
+                    if (this.isInZone()) this.progress += 0.012;
+                    else this.progress = Math.max(0, this.progress - 0.006);
+                } 
+                else if (this.type === 'FOLLOW') {
+                    this.angle += 0.03;
+                    this.fx = w/2 + Math.cos(this.angle) * 150;
+                    this.fy = h/3 + Math.sin(this.angle * 0.5) * 80;
+                    if (this.isInZone()) this.progress += 0.015;
+                    else this.progress = Math.max(0, this.progress - 0.004);
                 }
-                if (inZone) {
-                    this.progress += 0.015;
-                    if (this.progress >= 1) { this.completed = true; this.active = false; }
-                } else {
-                    this.progress = Math.max(0, this.progress - 0.005);
+                else if (this.type === 'FLOW') {
+                    const pts = motionPoints.filter(p => Math.abs(p.y - this.y) < 150);
+                    if (pts.length > 0) {
+                        const avgX = pts.reduce((a, b) => a + b.x, 0) / pts.length;
+                        if (this.lastX > 0 && avgX > this.lastX + 2) {
+                            this.progress += 0.02; // 右揮
+                        }
+                        this.lastX = avgX;
+                    }
+                    this.progress = Math.max(0, this.progress - 0.002);
                 }
+                if (this.progress >= 1.0) { this.completed = true; this.active = false; }
             }
             draw(ctx) {
+                const tx = (this.type === 'FOLLOW') ? this.fx : this.x;
+                const ty = (this.type === 'FOLLOW') ? this.fy : this.y;
                 ctx.save();
+                ctx.shadowBlur = 30; ctx.shadowColor = "#00ff9d";
                 ctx.beginPath();
-                ctx.strokeStyle = varColor('--c-heal');
-                ctx.lineWidth = 5;
-                ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+                ctx.arc(tx, ty, this.r, 0, Math.PI * 2);
+                ctx.strokeStyle = "rgba(0, 255, 157, 0.45)";
+                ctx.lineWidth = 10;
                 ctx.stroke();
-                
-                // 畫進度條背景
-                ctx.fillStyle = "rgba(255,255,255,0.2)";
-                ctx.fillRect(this.x - 50, this.y + this.r + 20, 100, 10, 5);
-                // 畫進度
-                ctx.fillStyle = varColor('--c-heal');
-                ctx.fillRect(this.x - 50, this.y + this.r + 20, 100 * this.progress, 10, 5);
-                
-                ctx.font = "bold 24px 'Microsoft JhengHei'";
-                ctx.textAlign = "center";
-                ctx.fillStyle = "#fff";
-                ctx.fillText("✨ 深呼吸靜心區 ✨", this.x, this.y - this.r - 20);
-                ctx.fillText("手臂停留在區域內冷靜", this.x, this.y);
+                // 呼吸環進度
+                ctx.beginPath();
+                ctx.arc(tx, ty, this.r, -Math.PI/2, -Math.PI/2 + (Math.PI * 2 * this.progress));
+                ctx.strokeStyle = "#00ff9d";
+                ctx.lineWidth = 12;
+                ctx.lineCap = "round";
+                ctx.stroke();
                 ctx.restore();
+
+                let helpText = "";
+                if (this.type === 'STAY') helpText = "✨ 靜心練習：請停留在此區內 ✨";
+                else if (this.type === 'FOLLOW') helpText = "🎈 引導練習：手臂跟著泡泡移動 🎈";
+                else if (this.type === 'FLOW') helpText = "🌊 流動練習：緩慢由左向右揮動 🌊";
+
+                ctx.font = "bold 26px 'Microsoft JhengHei', sans-serif";
+                ctx.textAlign = "center"; ctx.fillStyle = "#fff";
+                ctx.shadowBlur = 10; ctx.shadowColor = "black";
+                ctx.fillText(helpText, w/2, ty - this.r - 40);
+                const timeLeft = Math.ceil(this.timer / 60);
+                ctx.font = "16px 'Microsoft JhengHei'";
+                ctx.fillText(`剩餘時間: ${timeLeft} 秒`, w/2, ty + this.r + 40);
             }
+        }
+
+        // --- Master Edition 輔助函式 ---
+        function triggerShake(amt = 15) { shakeAmount = amt; }
+        
+        function updateCombo(val) {
+            if (val > 0) {
+                combo++;
+                if (combo > maxCombo) maxCombo = combo;
+                $('combo-count').innerText = combo;
+                $('combo-container').classList.remove('hidden');
+                $('combo-count').classList.remove('pulse-scale');
+                void $('combo-count').offsetWidth; // 重啟動畫
+                $('combo-count').classList.add('pulse-scale');
+                
+                if (combo % 10 === 0 && combo > lastComboMilestone) {
+                    showMascotSpeech(MASCOT_MESSAGES.combo[Math.floor(Math.random()*MASCOT_MESSAGES.combo.length)]);
+                    lastComboMilestone = combo;
+                    if (combo === 20 && !hasShield) {
+                        hasShield = true;
+                        showMascotSpeech(MASCOT_MESSAGES.shield[0]);
+                        sfx.playShield();
+                    }
+                }
+            } else {
+                if (combo >= 5) triggerShake(20);
+                combo = 0;
+                lastComboMilestone = 0;
+                $('combo-container').classList.add('hidden');
+            }
+        }
+
+        function showMascotSpeech(txt) {
+            // 已移除白色對話框特效以防止跑版
+            console.log("Mascot says: " + txt);
         }
 
         const varColor = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -602,35 +794,40 @@
                         this.speed = CFG.gravity * 1.5;
                         this.glow = true;
                     }
-                    else if (this.r > 0.88) { // 高分
+                    else if (this.r > 0.85) { // 高分
                         this.type = 'super'; this.val = 150; 
                         const d = GAME_DATA.super[Math.floor(Math.random()*GAME_DATA.super.length)];
                         this.icon = d.i; this.text = d.t;
                         this.color = '#b026ff'; 
-                        this.speed = CFG.gravity * 1.8; 
+                        this.speed = CFG.gravity * 2.0; 
                         this.glow = true;
                     }
-                    else if (this.r > 0.78) { // 情緒項 (進入壓力狀態)
+                    else if (this.r > 0.72) { // 情緒項 (進入壓力狀態)
                         this.type = 'emotion'; this.val = 0;
                         const d = GAME_DATA.emotion[Math.floor(Math.random()*GAME_DATA.emotion.length)];
                         this.icon = d.i; this.text = d.t;
                         this.color = '#ff9800'; // 橘色警告
-                        this.speed = CFG.gravity * 0.9;
+                        this.speed = CFG.gravity * 1.1;
                         this.glow = true;
                     }
-                    else if (this.r > 0.65) { // 直接扣命 (行為)
+                    else if (this.r > 0.55) { // 直接扣命 (行為)
                         this.type = 'bad'; this.val = -1; 
                         const d = GAME_DATA.bad[Math.floor(Math.random()*GAME_DATA.bad.length)];
                         this.icon = d.i; this.text = d.t;
                         this.color = '#ff2a2a'; 
-                        this.speed = CFG.gravity * 1.0; 
+                        const mult = getDifficulty();
+                        this.speed = (CFG.gravity * mult + (score / 1500)) * (1.1 + Math.random() * 0.3);
+                        if (stormActive) this.speed *= 1.5;
                         this.glow = false;
                     }
                     else { // 普通/常態
                         this.type = 'normal'; this.val = 20; 
-                        this.icon = '🤝'; this.text = '互助';
+                        const d = GAME_DATA.normal[Math.floor(Math.random()*GAME_DATA.normal.length)];
+                        this.icon = d.i; this.text = d.t;
                         this.color = '#ffffff'; 
-                        this.speed = CFG.gravity * 1.1; 
+                        const mult = getDifficulty();
+                        this.speed = (CFG.gravity * mult + (score / 1500)) * (1.0 + Math.random() * 0.2); 
+                        if (stormActive) this.speed *= 1.5; 
                         this.glow = false;
                     }
                 }
@@ -644,40 +841,51 @@
             }
             update() { this.y += this.speed; this.angle += this.rotSpeed; if (this.y > h+50) this.active = false; }
             draw(ctx) {
+                // Master Flow: 高連擊殘影
+                if (combo >= 30) {
+                    ctx.save();
+                    ctx.globalAlpha = 0.3;
+                    for (let i = 1; i <= 3; i++) {
+                        ctx.save();
+                        ctx.translate(this.x, this.y - (i * this.speed * 0.5));
+                        ctx.rotate(this.angle - (i * this.rotSpeed));
+                        this.drawShape(ctx);
+                        ctx.restore();
+                    }
+                    ctx.restore();
+                }
+
                 ctx.save(); 
                 ctx.translate(this.x, this.y); 
-
+                this.drawShape(ctx);
+                ctx.restore();
+            }
+            drawShape(ctx) {
                 if (this.glow || this.type === 'heal') {
                     ctx.shadowBlur = this.type === 'heal' ? 30 : 20; 
                     ctx.shadowColor = this.color;
                 }
-
                 ctx.save();
                 ctx.rotate(this.angle);
-                
                 ctx.beginPath();
                 ctx.strokeStyle = this.color;
                 ctx.lineWidth = 3;
                 if (this.type === 'bad') ctx.rect(-25, -25, 50, 50);
                 else ctx.arc(0, 0, 30, 0, Math.PI*2);
                 ctx.stroke();
-
-                ctx.font = `${this.size}px Arial`; 
+                ctx.font = `900 ${this.size * 0.6}px "Font Awesome 6 Free"`; 
                 ctx.textAlign = "center"; ctx.textBaseline = "middle";
                 ctx.fillStyle = "#fff";
-                ctx.fillText(this.icon, 0, 4);
+                ctx.fillText(this.icon, 0, 0);
                 ctx.restore(); 
-
                 ctx.shadowBlur = 0; 
-                ctx.font = "bold 20px 'Microsoft JhengHei'";
+                ctx.font = "bold 18px 'Microsoft JhengHei'";
                 ctx.textAlign = "center"; ctx.textBaseline = "top";
                 ctx.fillStyle = this.color;
-                ctx.lineWidth = 4; ctx.lineJoin = "round"; ctx.strokeStyle = "rgba(0,0,0,0.9)";
-                
-                const textY = 40;
+                ctx.lineWidth = 4; ctx.lineJoin = "round"; ctx.strokeStyle = "rgba(0,0,0,0.8)";
+                const textY = 35;
                 ctx.strokeText(this.text, 0, textY);
                 ctx.fillText(this.text, 0, textY);
-                ctx.restore(); 
             }
         }
 
@@ -754,15 +962,25 @@
             $('scenario-ui').classList.add('hidden');
 
             $('top-bar').style.opacity = 1;
-            score = 0; lives = 3; nextLifeScore = 1500;
+            score = 0; lives = 3; nextLifeScore = 2000;
             items = []; particles = []; floatingTexts = [];
             stats = { transformed: 0, mindfulness: 0, scenarios: 0, heals: 0 };
+            analytics = { totalSuperHits: 0, totalBadHits: 0, mindfulnessTime: 0 };
             
             isUnderPressure = false;
             scenarioActive = false;
             mindfulnessZone = null;
             nextScenarioScore = 600;
             lastMindfulnessScore = 0;
+
+            // Master Edition 重置
+            combo = 0;
+            maxCombo = 0;
+            shakeAmount = 0;
+            hasShield = false;
+            lastComboMilestone = 0;
+            $('combo-container').classList.add('hidden');
+            const s = mascot.querySelector('.shield-effect'); if(s) s.remove();
             
             CFG.spawnRate = 15;
             updateUI(); 
@@ -794,8 +1012,14 @@
             rankEl.style.color = color;
 
             // 生成統計摘要
+            let moodMap = { 
+                'joy': '😊快樂', 'sadness': '😢悲傷', 'fear': '😨恐懼', 
+                'disgust': '😖厭惡', 'anger': '😡憤怒', 'surprise': '😲驚訝' 
+            };
+            let moodText = moodMap[initialMood] || '探索中';
+
             let statsHTML = `<div style="margin-bottom:15px; font-size:0.9rem; color:#aaa; line-height:1.6;">
-                初始狀態: ${initialMood === 'happy' ? '😊開心' : initialMood === 'calm' ? '😌平靜' : initialMood === 'tired' ? '😫疲憊' : initialMood === 'anxious' ? '😰焦慮' : '😡生氣'}<br>
+                初始狀態: ${moodText}<br>
                 情緒轉化成功: ${stats.transformed} 次<br>
                 靜心練習完成: ${stats.mindfulness} 次<br>
                 情境決策完成: ${stats.scenarios} 次
@@ -816,8 +1040,19 @@
 
         function updateUI() {
             $('scoreDisplay').innerText = score;
-            const hearts = Array(lives).fill('<i class="fas fa-heart heart"></i>').join('');
+            const displayLives = Math.max(0, lives); // 確保 lives 不為負數，避免 Array(lives) 報錯
+            const hearts = Array(displayLives).fill('<i class="fas fa-heart heart"></i>').join('');
             $('livesDisplay').innerHTML = hearts;
+
+            // 護盾視覺更新
+            const existingShield = mascot.querySelector('.shield-effect');
+            if (hasShield && !existingShield) {
+                const s = document.createElement('div');
+                s.className = 'shield-effect';
+                mascot.appendChild(s);
+            } else if (!hasShield && existingShield) {
+                existingShield.remove();
+            }
         }
 
         function gainLifeEffect() {
@@ -849,15 +1084,59 @@
         }
 
         let fc = 0;
+        let scenarioTimeout = 0;
+
         function loop() {
             if (!gameActive) return;
-            detectMotion(); gCtx.clearRect(0, 0, w, h); fc++;
+            // --- 螢幕震動處理 ---
+            gCtx.save();
+            if (shakeAmount > 0) {
+                const sx = (Math.random() - 0.5) * shakeAmount;
+                const sy = (Math.random() - 0.5) * shakeAmount;
+                gCtx.translate(sx, sy);
+                shakeAmount *= 0.9;
+                if (shakeAmount < 0.5) shakeAmount = 0;
+            }
+
+            detectMotion(); fc++;
+            gCtx.clearRect(-100, -100, w + 200, h + 200); 
 
             // --- 隨機靜心區生成 ---
-            if (!mindfulnessZone && !scenarioActive && score > lastMindfulnessScore + 800 && Math.random() < 0.01) {
+            if (!mindfulnessZone && !scenarioActive && score > lastMindfulnessScore + 1000 && Math.random() < 0.008) {
                 mindfulnessZone = new MindfulnessZone();
                 lastMindfulnessScore = score;
             }
+            
+            // --- 情境波次與情緒風暴觸發 ---
+            if (!scenarioActive && !stormActive && score >= nextStormScore) {
+                stormActive = true; stormTimer = 480; // 約 8 秒 60fps
+                nextStormScore += 2500;
+                sfx.playSuper(); // 風暴提示音
+                floatingTexts.push(new FloatingText(w/2, h/2, "⛈️ 情緒風暴來襲 ⛈️\n倍速挑戰！", "#ff9800", 50));
+            }
+            if (stormActive) {
+                stormTimer--;
+                document.body.style.filter = "hue-rotate("+(stormTimer*2)+"deg) contrast(1.2)";
+                if (stormTimer <= 0) {
+                    stormActive = false;
+                    document.body.style.filter = "none";
+                }
+            }
+            
+            if (!scenarioActive && !stormActive && score >= nextScenarioScore) {
+                triggerScenario();
+                scenarioTimeout = 0;
+            }
+            if (scenarioActive) {
+                scenarioTimeout++;
+                if (scenarioTimeout > 600) { // 10秒自動重置
+                    scenarioActive = false;
+                    $('scenario-ui').classList.add('hidden');
+                    items.length = 0;
+                    nextScenarioScore = score + 800;
+                }
+            }
+
             if (mindfulnessZone) {
                 mindfulnessZone.update();
                 mindfulnessZone.draw(gCtx);
@@ -868,8 +1147,8 @@
                     floatingTexts.push(new FloatingText(w/2, h/2, "✨ 心靈淨化 ✨\n+300", "#00ff9d", 45));
                     createExplosion(w/2, h/3, "#00ff9d");
                     mindfulnessZone = null;
-                } else if (mindfulnessZone.y > h + 200) { // 這裡只是保險，實際上靜心區通常是固定的
-                    mindfulnessZone = null;
+                } else if (!mindfulnessZone.active) { 
+                    mindfulnessZone = null; // 處理自動逾時
                 }
             }
 
@@ -878,17 +1157,25 @@
                 triggerScenario();
             }
 
-            // --- 壓力狀態處理 ---
+            // --- 壓力狀態處理與共調機制 ---
             if (isUnderPressure) {
-                pressureTimer--;
+                // 如果在靜心區中，壓力消退速度增加
+                const inZone = mindfulnessZone && mindfulnessZone.isInZone();
+                pressureTimer -= inZone ? 2.5 : 1; 
+                if (inZone) analytics.mindfulnessTime++;
+
                 if (pressureTimer <= 0) {
                     isUnderPressure = false;
                     document.body.classList.remove('under-pressure');
-                    lives--;
+                    lives--; 
+                    analytics.totalBadHits++;
                     sfx.playBad();
                     floatingTexts.push(new FloatingText(w/2, h/2, "壓力過載！\n-1 命", "#ff2a2a", 40));
                     updateUI();
-                    if (lives <= 0) gameOver();
+                    if (lives <= 0) {
+                        lives = 0; // 確保不小於 0 
+                        gameOver();
+                    }
                 }
             }
 
@@ -924,13 +1211,20 @@
                             stats.transformed++;
                             displayText = `轉化成功！\n+100`; score += 50;
                         }
-                        sfx.playHeal(); fontSize = 32; stats.heals++;
+                        sfx.playHeal(); fontSize = 32; stats.heals++; analytics.totalHeals++;
                         floatingTexts.push(new FloatingText(it.x, it.y, displayText, it.color, fontSize));
                     } else if (it.type === 'bad') {
-                        lives--; sfx.playBad();
-                        displayText = `小心${it.text}!\n-1命`;
+                        analytics.totalBadHits++;
+                        if (hasShield) {
+                            hasShield = false;
+                            displayText = "護盾抵擋！";
+                            sfx.playShield();
+                        } else {
+                            lives--; sfx.playBad();
+                            displayText = `小心${it.text}!\n-1命`;
+                            if (lives<=0) gameOver();
+                        }
                         floatingTexts.push(new FloatingText(it.x, it.y, displayText, '#fff', 30));
-                        if (lives<=0) gameOver();
                     } else if (it.type === 'emotion') {
                         isUnderPressure = true;
                         pressureTimer = 300; // 約 5 秒 (60fps)
@@ -943,34 +1237,62 @@
                         scenarioActive = false; $('scenario-ui').classList.add('hidden');
                         sfx.playSuper(); displayText = `正確決策！\n+${it.val}`;
                         floatingTexts.push(new FloatingText(it.x, it.y, displayText, it.color, 35));
-                        items = []; // 清空選項
+                        items.length = 0; // 清空其餘選項
                         nextScenarioScore += 1000;
+                        break; // 立即跳出循環
                     } else if (it.type === 'scenario_no') {
                         lives += it.val; // -1
                         scenarioActive = false; $('scenario-ui').classList.add('hidden');
                         sfx.playBad(); displayText = `衝動決策！\n-1 命`;
                         floatingTexts.push(new FloatingText(it.x, it.y, displayText, it.color, 35));
-                        items = []; // 清空選項
+                        items.length = 0; // 清空其餘選項
                         nextScenarioScore += 1000;
-                        if (lives <= 0) gameOver();
-                    } else {
-                        score += it.val;
-                        if (score >= nextLifeScore && lives < MAX_LIVES) {
-                            lives++; gainLifeEffect();
-                            floatingTexts.push(new FloatingText(w/2, h/2, "LEVEL UP!\n+1 命", "#00ff9d", 50));
-                            sfx.playPowerUp(); nextLifeScore += 1500;
+                        if (lives <= 0) {
+                            lives = 0; 
+                            gameOver();
                         }
-                        if (it.type==='super') { sfx.playSuper(); fontSize=40; }
-                        else if (it.type==='rare') { sfx.playRare(); fontSize=34; }
+                        break; // 立即跳出循環
+                    } else {
+                        if (it.type==='rare') { sfx.playRare(); fontSize=34; }
                         else { sfx.playGood(); fontSize=28; }
-                        displayText = `${it.text}\n+${it.val}`;
+                        
+                        // 連擊加成計算
+                        const comboBonus = 1 + Math.floor(combo / 10) * 0.5;
+                        const finalVal = Math.floor(it.val * comboBonus);
+                        score += finalVal;
+                        updateCombo(1);
+                        
+                        displayText = `${it.text}\n+${finalVal}`;
+                        if (comboBonus > 1) displayText += `\n(${Math.round(comboBonus*10)/10}x!)`;
+                        
                         floatingTexts.push(new FloatingText(it.x, it.y, displayText, it.color, fontSize));
                     }
-                    createExplosion(it.x, it.y, it.color); updateUI(); items.splice(i, 1);
+                    
+                    if (it.type !== 'bad' && it.type !== 'scenario_no' && it.type !== 'emotion') {
+                        triggerShake(combo > 10 ? 8 : 4);
+                    }
+                    createExplosion(it.x, it.y, it.color); 
+                    updateUI(); 
+                    items.splice(i, 1);
+                    if (lives <= 0) return; // 遊戲結束直接中斷
                 }
             }
-            particles.forEach((p,i) => { p.update(); p.draw(gCtx); if(p.life<=0) particles.splice(i,1); });
-            floatingTexts.forEach((t,i) => { t.update(); t.draw(gCtx); if(t.life<=0) floatingTexts.splice(i,1); });
+            
+            // 使用反向循環處理陣列，避免 splice 造成跳過元素或錯誤
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                p.update(); p.draw(gCtx);
+                if (p.life <= 0) particles.splice(i, 1);
+            }
+            
+            for (let i = floatingTexts.length - 1; i >= 0; i--) {
+                let t = floatingTexts[i];
+                t.update(); t.draw(gCtx);
+                if (t.life <= 0) floatingTexts.splice(i, 1);
+            }
+            
+            gCtx.restore(); // 恢復震動之前的狀態
+
             animationFrameId = requestAnimationFrame(loop);
         }
 
